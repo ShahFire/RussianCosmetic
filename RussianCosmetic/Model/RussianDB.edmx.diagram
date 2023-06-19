@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7d49e4836e7d4c32806f61addf4bdef7" Name="Diagram1">
+        <EntityTypeShape EntityType="RussianCosmeticDBModel.controller" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RussianCosmeticDBModel.fiz_lizo" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RussianCosmeticDBModel.kont_lizo" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RussianCosmeticDBModel.okaz_usluga" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RussianCosmeticDBModel.pasport" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RussianCosmeticDBModel.rukovoditel" Width="1.5" PointX="0.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RussianCosmeticDBModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RussianCosmeticDBModel.ur_lizo" Width="1.5" PointX="3" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="RussianCosmeticDBModel.usluga" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RussianCosmeticDBModel.zakaz" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <AssociationConnector Association="RussianCosmeticDBModel.FK_okaz_usluga_controller" ManuallyRouted="false" />
+        <AssociationConnector Association="RussianCosmeticDBModel.FK_fiz_lizo_pasport" ManuallyRouted="false" />
+        <AssociationConnector Association="RussianCosmeticDBModel.FK_zakaz_fiz_lizo" ManuallyRouted="false" />
+        <AssociationConnector Association="RussianCosmeticDBModel.FK_ur_lizo_kont_lizo" ManuallyRouted="false" />
+        <AssociationConnector Association="RussianCosmeticDBModel.FK_okaz_usluga_usluga" ManuallyRouted="false" />
+        <AssociationConnector Association="RussianCosmeticDBModel.FK_ur_lizo_rukovoditel" ManuallyRouted="false" />
+        <AssociationConnector Association="RussianCosmeticDBModel.FK_zakaz_ur_lizo" ManuallyRouted="false" />
+        <AssociationConnector Association="RussianCosmeticDBModel.usluga_controller" ManuallyRouted="false" />
+        <AssociationConnector Association="RussianCosmeticDBModel.zakaz_usluga" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

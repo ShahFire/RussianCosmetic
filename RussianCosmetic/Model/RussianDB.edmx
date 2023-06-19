@@ -1,0 +1,764 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище RussianCosmeticDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="controller">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="familia" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="imya" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="otchestvo" Type="nvarchar" MaxLength="100" />
+          <Property Name="parol" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="fiz_lizo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="familia" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="imya" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="otchestvo" Type="nvarchar" MaxLength="100" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="data_rozjdenia" Type="date" />
+          <Property Name="telephone" Type="nvarchar" MaxLength="100" />
+          <Property Name="pasport_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kont_lizo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="familia" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="imya" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="otchestvo" Type="nvarchar" MaxLength="100" />
+          <Property Name="nomer_telepfona" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="okaz_usluga">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data" Type="date" Nullable="false" />
+          <Property Name="usluga_id" Type="int" Nullable="false" />
+          <Property Name="controller_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pasport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="seria" Type="int" Nullable="false" />
+          <Property Name="nomer" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rukovoditel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="familia" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="imya" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="otchestvo" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="ur_lizo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazvanie_companii" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="adress" Type="nvarchar" MaxLength="200" />
+          <Property Name="inn" Type="nvarchar" MaxLength="100" />
+          <Property Name="rasch_schot" Type="nvarchar" MaxLength="100" />
+          <Property Name="bik" Type="nvarchar" MaxLength="100" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="parol" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="rukovoditel_id" Type="int" Nullable="false" />
+          <Property Name="kont_lizo_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usluga">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naimenovanie" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="stoimost" Type="money" Nullable="false" />
+          <Property Name="srok_vipolnenia" Type="datetime" Nullable="false" />
+          <Property Name="srednee_otklonenie" Type="datetime" Nullable="false" />
+          <Property Name="kod_uslugi" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "RussianCosmeticDB.dbo.usluga_controller" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="usluga_controller">
+          <Key>
+            <PropertyRef Name="controller_id" />
+            <PropertyRef Name="usluga_id" />
+          </Key>
+          <Property Name="controller_id" Type="int" Nullable="false" />
+          <Property Name="usluga_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="zakaz">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data_sozdania" Type="date" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="vremya_vipolnenia" Type="time" Precision="7" />
+          <Property Name="stoimost" Type="money" />
+          <Property Name="klient_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "RussianCosmeticDB.dbo.zakaz_usluga" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="zakaz_usluga">
+          <Key>
+            <PropertyRef Name="zakaz_id" />
+            <PropertyRef Name="usluga_id" />
+          </Key>
+          <Property Name="zakaz_id" Type="int" Nullable="false" />
+          <Property Name="usluga_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_fiz_lizo_pasport">
+          <End Role="pasport" Type="Self.pasport" Multiplicity="1" />
+          <End Role="fiz_lizo" Type="Self.fiz_lizo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pasport">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="fiz_lizo">
+              <PropertyRef Name="pasport_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_okaz_usluga_controller">
+          <End Role="controller" Type="Self.controller" Multiplicity="1" />
+          <End Role="okaz_usluga" Type="Self.okaz_usluga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="controller">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="okaz_usluga">
+              <PropertyRef Name="controller_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_okaz_usluga_usluga">
+          <End Role="usluga" Type="Self.usluga" Multiplicity="1" />
+          <End Role="okaz_usluga" Type="Self.okaz_usluga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="okaz_usluga">
+              <PropertyRef Name="usluga_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ur_lizo_kont_lizo">
+          <End Role="kont_lizo" Type="Self.kont_lizo" Multiplicity="1" />
+          <End Role="ur_lizo" Type="Self.ur_lizo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kont_lizo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ur_lizo">
+              <PropertyRef Name="kont_lizo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ur_lizo_rukovoditel">
+          <End Role="rukovoditel" Type="Self.rukovoditel" Multiplicity="1" />
+          <End Role="ur_lizo" Type="Self.ur_lizo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rukovoditel">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ur_lizo">
+              <PropertyRef Name="rukovoditel_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usluga_controller_controller">
+          <End Role="controller" Type="Self.controller" Multiplicity="1" />
+          <End Role="usluga_controller" Type="Self.usluga_controller" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="controller">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usluga_controller">
+              <PropertyRef Name="controller_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usluga_controller_usluga">
+          <End Role="usluga" Type="Self.usluga" Multiplicity="1" />
+          <End Role="usluga_controller" Type="Self.usluga_controller" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usluga_controller">
+              <PropertyRef Name="usluga_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_zakaz_fiz_lizo">
+          <End Role="fiz_lizo" Type="Self.fiz_lizo" Multiplicity="1" />
+          <End Role="zakaz" Type="Self.zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fiz_lizo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="zakaz">
+              <PropertyRef Name="klient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_zakaz_ur_lizo">
+          <End Role="ur_lizo" Type="Self.ur_lizo" Multiplicity="1" />
+          <End Role="zakaz" Type="Self.zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ur_lizo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="zakaz">
+              <PropertyRef Name="klient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_zakaz_usluga_usluga">
+          <End Role="usluga" Type="Self.usluga" Multiplicity="1" />
+          <End Role="zakaz_usluga" Type="Self.zakaz_usluga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="zakaz_usluga">
+              <PropertyRef Name="usluga_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_zakaz_usluga_zakaz">
+          <End Role="zakaz" Type="Self.zakaz" Multiplicity="1" />
+          <End Role="zakaz_usluga" Type="Self.zakaz_usluga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="zakaz">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="zakaz_usluga">
+              <PropertyRef Name="zakaz_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище RussianCosmeticDBModelContainer">
+          <EntitySet Name="controller" EntityType="Self.controller" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="fiz_lizo" EntityType="Self.fiz_lizo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kont_lizo" EntityType="Self.kont_lizo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="okaz_usluga" EntityType="Self.okaz_usluga" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pasport" EntityType="Self.pasport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rukovoditel" EntityType="Self.rukovoditel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ur_lizo" EntityType="Self.ur_lizo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usluga" EntityType="Self.usluga" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zakaz" EntityType="Self.zakaz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usluga_controller" EntityType="Self.usluga_controller" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [usluga_controller].[controller_id] AS [controller_id], 
+    [usluga_controller].[usluga_id] AS [usluga_id]
+    FROM [dbo].[usluga_controller] AS [usluga_controller]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="zakaz_usluga" EntityType="Self.zakaz_usluga" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [zakaz_usluga].[zakaz_id] AS [zakaz_id], 
+    [zakaz_usluga].[usluga_id] AS [usluga_id]
+    FROM [dbo].[zakaz_usluga] AS [zakaz_usluga]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_fiz_lizo_pasport" Association="Self.FK_fiz_lizo_pasport">
+            <End Role="pasport" EntitySet="pasport" />
+            <End Role="fiz_lizo" EntitySet="fiz_lizo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_okaz_usluga_controller" Association="Self.FK_okaz_usluga_controller">
+            <End Role="controller" EntitySet="controller" />
+            <End Role="okaz_usluga" EntitySet="okaz_usluga" />
+          </AssociationSet>
+          <AssociationSet Name="FK_okaz_usluga_usluga" Association="Self.FK_okaz_usluga_usluga">
+            <End Role="usluga" EntitySet="usluga" />
+            <End Role="okaz_usluga" EntitySet="okaz_usluga" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ur_lizo_kont_lizo" Association="Self.FK_ur_lizo_kont_lizo">
+            <End Role="kont_lizo" EntitySet="kont_lizo" />
+            <End Role="ur_lizo" EntitySet="ur_lizo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ur_lizo_rukovoditel" Association="Self.FK_ur_lizo_rukovoditel">
+            <End Role="rukovoditel" EntitySet="rukovoditel" />
+            <End Role="ur_lizo" EntitySet="ur_lizo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usluga_controller_controller" Association="Self.FK_usluga_controller_controller">
+            <End Role="controller" EntitySet="controller" />
+            <End Role="usluga_controller" EntitySet="usluga_controller" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usluga_controller_usluga" Association="Self.FK_usluga_controller_usluga">
+            <End Role="usluga" EntitySet="usluga" />
+            <End Role="usluga_controller" EntitySet="usluga_controller" />
+          </AssociationSet>
+          <AssociationSet Name="FK_zakaz_fiz_lizo" Association="Self.FK_zakaz_fiz_lizo">
+            <End Role="fiz_lizo" EntitySet="fiz_lizo" />
+            <End Role="zakaz" EntitySet="zakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_zakaz_ur_lizo" Association="Self.FK_zakaz_ur_lizo">
+            <End Role="ur_lizo" EntitySet="ur_lizo" />
+            <End Role="zakaz" EntitySet="zakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_zakaz_usluga_usluga" Association="Self.FK_zakaz_usluga_usluga">
+            <End Role="usluga" EntitySet="usluga" />
+            <End Role="zakaz_usluga" EntitySet="zakaz_usluga" />
+          </AssociationSet>
+          <AssociationSet Name="FK_zakaz_usluga_zakaz" Association="Self.FK_zakaz_usluga_zakaz">
+            <End Role="zakaz" EntitySet="zakaz" />
+            <End Role="zakaz_usluga" EntitySet="zakaz_usluga" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RussianCosmeticDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="controller">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="familia" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="imya" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="otchestvo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="parol" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="okaz_usluga" Relationship="Self.FK_okaz_usluga_controller" FromRole="controller" ToRole="okaz_usluga" />
+          <NavigationProperty Name="usluga" Relationship="Self.usluga_controller" FromRole="controller" ToRole="usluga" />
+        </EntityType>
+        <EntityType Name="fiz_lizo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="familia" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="imya" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="otchestvo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="data_rozjdenia" Type="DateTime" Precision="0" />
+          <Property Name="telephone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="pasport_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="pasport" Relationship="Self.FK_fiz_lizo_pasport" FromRole="fiz_lizo" ToRole="pasport" />
+          <NavigationProperty Name="zakaz" Relationship="Self.FK_zakaz_fiz_lizo" FromRole="fiz_lizo" ToRole="zakaz" />
+        </EntityType>
+        <EntityType Name="kont_lizo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="familia" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="imya" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="otchestvo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="nomer_telepfona" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ur_lizo" Relationship="Self.FK_ur_lizo_kont_lizo" FromRole="kont_lizo" ToRole="ur_lizo" />
+        </EntityType>
+        <EntityType Name="okaz_usluga">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="usluga_id" Type="Int32" Nullable="false" />
+          <Property Name="controller_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="controller" Relationship="Self.FK_okaz_usluga_controller" FromRole="okaz_usluga" ToRole="controller" />
+          <NavigationProperty Name="usluga" Relationship="Self.FK_okaz_usluga_usluga" FromRole="okaz_usluga" ToRole="usluga" />
+        </EntityType>
+        <EntityType Name="pasport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="seria" Type="Int32" Nullable="false" />
+          <Property Name="nomer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="fiz_lizo" Relationship="Self.FK_fiz_lizo_pasport" FromRole="pasport" ToRole="fiz_lizo" />
+        </EntityType>
+        <EntityType Name="rukovoditel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="familia" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="imya" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="otchestvo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ur_lizo" Relationship="Self.FK_ur_lizo_rukovoditel" FromRole="rukovoditel" ToRole="ur_lizo" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ur_lizo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazvanie_companii" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="inn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="rasch_schot" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="bik" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="parol" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="rukovoditel_id" Type="Int32" Nullable="false" />
+          <Property Name="kont_lizo_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="kont_lizo" Relationship="Self.FK_ur_lizo_kont_lizo" FromRole="ur_lizo" ToRole="kont_lizo" />
+          <NavigationProperty Name="rukovoditel" Relationship="Self.FK_ur_lizo_rukovoditel" FromRole="ur_lizo" ToRole="rukovoditel" />
+          <NavigationProperty Name="zakaz" Relationship="Self.FK_zakaz_ur_lizo" FromRole="ur_lizo" ToRole="zakaz" />
+        </EntityType>
+        <EntityType Name="usluga">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naimenovanie" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="stoimost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="srok_vipolnenia" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="srednee_otklonenie" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="kod_uslugi" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="okaz_usluga" Relationship="Self.FK_okaz_usluga_usluga" FromRole="usluga" ToRole="okaz_usluga" />
+          <NavigationProperty Name="controller" Relationship="Self.usluga_controller" FromRole="usluga" ToRole="controller" />
+          <NavigationProperty Name="zakaz" Relationship="Self.zakaz_usluga" FromRole="usluga" ToRole="zakaz" />
+        </EntityType>
+        <EntityType Name="zakaz">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data_sozdania" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="vremya_vipolnenia" Type="Time" Precision="7" />
+          <Property Name="stoimost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="klient_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="fiz_lizo" Relationship="Self.FK_zakaz_fiz_lizo" FromRole="zakaz" ToRole="fiz_lizo" />
+          <NavigationProperty Name="ur_lizo" Relationship="Self.FK_zakaz_ur_lizo" FromRole="zakaz" ToRole="ur_lizo" />
+          <NavigationProperty Name="usluga" Relationship="Self.zakaz_usluga" FromRole="zakaz" ToRole="usluga" />
+        </EntityType>
+        <Association Name="FK_okaz_usluga_controller">
+          <End Role="controller" Type="Self.controller" Multiplicity="1" />
+          <End Role="okaz_usluga" Type="Self.okaz_usluga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="controller">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="okaz_usluga">
+              <PropertyRef Name="controller_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_fiz_lizo_pasport">
+          <End Role="pasport" Type="Self.pasport" Multiplicity="1" />
+          <End Role="fiz_lizo" Type="Self.fiz_lizo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pasport">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="fiz_lizo">
+              <PropertyRef Name="pasport_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_zakaz_fiz_lizo">
+          <End Role="fiz_lizo" Type="Self.fiz_lizo" Multiplicity="1" />
+          <End Role="zakaz" Type="Self.zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fiz_lizo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="zakaz">
+              <PropertyRef Name="klient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ur_lizo_kont_lizo">
+          <End Role="kont_lizo" Type="Self.kont_lizo" Multiplicity="1" />
+          <End Role="ur_lizo" Type="Self.ur_lizo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kont_lizo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ur_lizo">
+              <PropertyRef Name="kont_lizo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_okaz_usluga_usluga">
+          <End Role="usluga" Type="Self.usluga" Multiplicity="1" />
+          <End Role="okaz_usluga" Type="Self.okaz_usluga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="okaz_usluga">
+              <PropertyRef Name="usluga_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ur_lizo_rukovoditel">
+          <End Role="rukovoditel" Type="Self.rukovoditel" Multiplicity="1" />
+          <End Role="ur_lizo" Type="Self.ur_lizo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rukovoditel">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ur_lizo">
+              <PropertyRef Name="rukovoditel_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_zakaz_ur_lizo">
+          <End Role="ur_lizo" Type="Self.ur_lizo" Multiplicity="1" />
+          <End Role="zakaz" Type="Self.zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ur_lizo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="zakaz">
+              <PropertyRef Name="klient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usluga_controller">
+          <End Role="controller" Type="Self.controller" Multiplicity="*" />
+          <End Role="usluga" Type="Self.usluga" Multiplicity="*" />
+        </Association>
+        <Association Name="zakaz_usluga">
+          <End Role="usluga" Type="Self.usluga" Multiplicity="*" />
+          <End Role="zakaz" Type="Self.zakaz" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="RussianCosmeticDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="controller" EntityType="Self.controller" />
+          <EntitySet Name="fiz_lizo" EntityType="Self.fiz_lizo" />
+          <EntitySet Name="kont_lizo" EntityType="Self.kont_lizo" />
+          <EntitySet Name="okaz_usluga" EntityType="Self.okaz_usluga" />
+          <EntitySet Name="pasport" EntityType="Self.pasport" />
+          <EntitySet Name="rukovoditel" EntityType="Self.rukovoditel" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="ur_lizo" EntityType="Self.ur_lizo" />
+          <EntitySet Name="usluga" EntityType="Self.usluga" />
+          <EntitySet Name="zakaz" EntityType="Self.zakaz" />
+          <AssociationSet Name="FK_okaz_usluga_controller" Association="Self.FK_okaz_usluga_controller">
+            <End Role="controller" EntitySet="controller" />
+            <End Role="okaz_usluga" EntitySet="okaz_usluga" />
+          </AssociationSet>
+          <AssociationSet Name="FK_fiz_lizo_pasport" Association="Self.FK_fiz_lizo_pasport">
+            <End Role="pasport" EntitySet="pasport" />
+            <End Role="fiz_lizo" EntitySet="fiz_lizo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_zakaz_fiz_lizo" Association="Self.FK_zakaz_fiz_lizo">
+            <End Role="fiz_lizo" EntitySet="fiz_lizo" />
+            <End Role="zakaz" EntitySet="zakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ur_lizo_kont_lizo" Association="Self.FK_ur_lizo_kont_lizo">
+            <End Role="kont_lizo" EntitySet="kont_lizo" />
+            <End Role="ur_lizo" EntitySet="ur_lizo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_okaz_usluga_usluga" Association="Self.FK_okaz_usluga_usluga">
+            <End Role="usluga" EntitySet="usluga" />
+            <End Role="okaz_usluga" EntitySet="okaz_usluga" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ur_lizo_rukovoditel" Association="Self.FK_ur_lizo_rukovoditel">
+            <End Role="rukovoditel" EntitySet="rukovoditel" />
+            <End Role="ur_lizo" EntitySet="ur_lizo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_zakaz_ur_lizo" Association="Self.FK_zakaz_ur_lizo">
+            <End Role="ur_lizo" EntitySet="ur_lizo" />
+            <End Role="zakaz" EntitySet="zakaz" />
+          </AssociationSet>
+          <AssociationSet Name="usluga_controller" Association="Self.usluga_controller">
+            <End Role="controller" EntitySet="controller" />
+            <End Role="usluga" EntitySet="usluga" />
+          </AssociationSet>
+          <AssociationSet Name="zakaz_usluga" Association="Self.zakaz_usluga">
+            <End Role="usluga" EntitySet="usluga" />
+            <End Role="zakaz" EntitySet="zakaz" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище RussianCosmeticDBModelContainer" CdmEntityContainer="RussianCosmeticDBEntities">
+          <EntitySetMapping Name="controller">
+            <EntityTypeMapping TypeName="RussianCosmeticDBModel.controller">
+              <MappingFragment StoreEntitySet="controller">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="familia" ColumnName="familia" />
+                <ScalarProperty Name="imya" ColumnName="imya" />
+                <ScalarProperty Name="otchestvo" ColumnName="otchestvo" />
+                <ScalarProperty Name="parol" ColumnName="parol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fiz_lizo">
+            <EntityTypeMapping TypeName="RussianCosmeticDBModel.fiz_lizo">
+              <MappingFragment StoreEntitySet="fiz_lizo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="familia" ColumnName="familia" />
+                <ScalarProperty Name="imya" ColumnName="imya" />
+                <ScalarProperty Name="otchestvo" ColumnName="otchestvo" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="data_rozjdenia" ColumnName="data_rozjdenia" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="pasport_id" ColumnName="pasport_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kont_lizo">
+            <EntityTypeMapping TypeName="RussianCosmeticDBModel.kont_lizo">
+              <MappingFragment StoreEntitySet="kont_lizo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="familia" ColumnName="familia" />
+                <ScalarProperty Name="imya" ColumnName="imya" />
+                <ScalarProperty Name="otchestvo" ColumnName="otchestvo" />
+                <ScalarProperty Name="nomer_telepfona" ColumnName="nomer_telepfona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="okaz_usluga">
+            <EntityTypeMapping TypeName="RussianCosmeticDBModel.okaz_usluga">
+              <MappingFragment StoreEntitySet="okaz_usluga">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="usluga_id" ColumnName="usluga_id" />
+                <ScalarProperty Name="controller_id" ColumnName="controller_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pasport">
+            <EntityTypeMapping TypeName="RussianCosmeticDBModel.pasport">
+              <MappingFragment StoreEntitySet="pasport">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="seria" ColumnName="seria" />
+                <ScalarProperty Name="nomer" ColumnName="nomer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rukovoditel">
+            <EntityTypeMapping TypeName="RussianCosmeticDBModel.rukovoditel">
+              <MappingFragment StoreEntitySet="rukovoditel">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="familia" ColumnName="familia" />
+                <ScalarProperty Name="imya" ColumnName="imya" />
+                <ScalarProperty Name="otchestvo" ColumnName="otchestvo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="RussianCosmeticDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ur_lizo">
+            <EntityTypeMapping TypeName="RussianCosmeticDBModel.ur_lizo">
+              <MappingFragment StoreEntitySet="ur_lizo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nazvanie_companii" ColumnName="nazvanie_companii" />
+                <ScalarProperty Name="adress" ColumnName="adress" />
+                <ScalarProperty Name="inn" ColumnName="inn" />
+                <ScalarProperty Name="rasch_schot" ColumnName="rasch_schot" />
+                <ScalarProperty Name="bik" ColumnName="bik" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="parol" ColumnName="parol" />
+                <ScalarProperty Name="rukovoditel_id" ColumnName="rukovoditel_id" />
+                <ScalarProperty Name="kont_lizo_id" ColumnName="kont_lizo_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usluga">
+            <EntityTypeMapping TypeName="RussianCosmeticDBModel.usluga">
+              <MappingFragment StoreEntitySet="usluga">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="naimenovanie" ColumnName="naimenovanie" />
+                <ScalarProperty Name="stoimost" ColumnName="stoimost" />
+                <ScalarProperty Name="srok_vipolnenia" ColumnName="srok_vipolnenia" />
+                <ScalarProperty Name="srednee_otklonenie" ColumnName="srednee_otklonenie" />
+                <ScalarProperty Name="kod_uslugi" ColumnName="kod_uslugi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zakaz">
+            <EntityTypeMapping TypeName="RussianCosmeticDBModel.zakaz">
+              <MappingFragment StoreEntitySet="zakaz">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data_sozdania" ColumnName="data_sozdania" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="vremya_vipolnenia" ColumnName="vremya_vipolnenia" />
+                <ScalarProperty Name="stoimost" ColumnName="stoimost" />
+                <ScalarProperty Name="klient_id" ColumnName="klient_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="usluga_controller" TypeName="RussianCosmeticDBModel.usluga_controller" StoreEntitySet="usluga_controller">
+            <EndProperty Name="controller">
+              <ScalarProperty Name="id" ColumnName="controller_id" />
+            </EndProperty>
+            <EndProperty Name="usluga">
+              <ScalarProperty Name="id" ColumnName="usluga_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="zakaz_usluga" TypeName="RussianCosmeticDBModel.zakaz_usluga" StoreEntitySet="zakaz_usluga">
+            <EndProperty Name="usluga">
+              <ScalarProperty Name="id" ColumnName="usluga_id" />
+            </EndProperty>
+            <EndProperty Name="zakaz">
+              <ScalarProperty Name="id" ColumnName="zakaz_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
